@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { GifsService } from '../services/gifs.service';
 
 @Component({
   selector: 'app-busqueda',
@@ -8,17 +9,24 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class BusquedaComponent {
 
-/*   ViewClild busca cualquier elemento del DOM y podemos
-  manejarlo 
-  El símbolo ! indica que not null accesion operator
-  es un operador para asegurarse que el objeto no es nulo
-  Al tipar textBuscar como HTMLInputElement tenemos acceso al .value*/
-  @ViewChild( 'txtBuscar') txtBuscar!: ElementRef<HTMLInputElement>;
+  /*   ViewClild busca cualquier elemento del DOM y podemos
+    manejarlo 
+    El símbolo ! indica que not null accesion operator
+    es un operador para asegurarse que el objeto no es nulo
+    Al tipar textBuscar como HTMLInputElement tenemos acceso al .value*/
+  @ViewChild('txtBuscar') txtBuscar!: ElementRef<HTMLInputElement>;
 
-  buscar( ){
+  /*   Insertamos el servicio para poder añadir el elemento al array
+    el value */
+  constructor(private gifsService: GifsService) { }
+
+
+  buscar() {
     const valor = this.txtBuscar.nativeElement.value;
-    console.log(this.txtBuscar)
-    this.txtBuscar.nativeElement.value='';
+    /* Insertamos el valor en el método a través del servicio */
+    this.gifsService.buscarGifs(valor);
+    /*   Limpiamos el input  */
+    this.txtBuscar.nativeElement.value = '';
   }
 
 }
