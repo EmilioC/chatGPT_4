@@ -6,11 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class GifsService {
 
-
   private _historial: string[] = [];
 
   get historial() {
-    /*     los tres puntos indica que es una referencia por lo que 
+    /*  Los tres puntos indica que es una referencia, por lo que 
         si hay una modificación no afectamos al original _historial [] */
     return [...this._historial];
   }
