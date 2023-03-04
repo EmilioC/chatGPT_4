@@ -82,9 +82,6 @@ se eliminarán todos los elementos después del décimo elemento y solo se conse
 
     console.log("***DESDE GIFSSERVICE***", this._historial);
   }
-
-
-
 }
 /*     método de JavaScript que se utiliza para realizar solicitudes 
     HTTP a servidores web y obtener recursos de la red. 
