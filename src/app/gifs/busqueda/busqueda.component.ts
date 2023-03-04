@@ -23,6 +23,12 @@ export class BusquedaComponent {
 
   buscar() {
     const valor = this.txtBuscar.nativeElement.value;
+
+    /* Limitamos la inserción de valores vacíos */
+    if (valor.trim().length === 0) {
+      return;
+    }
+
     /* Insertamos el valor en el método a través del servicio */
     this.gifsService.buscarGifs(valor);
     /*   Limpiamos el input  */
