@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SearchGifsResponse, Gif } from '../interfaces/gifs.interface';
 
 @Injectable({
   /*   root indica que estará disponible a nivel global */
@@ -10,7 +11,7 @@ export class GifsService {
   private apikey: string = "N8segJHx4XezJ8U2f0Ma13fPMQIDoIA6";
   private _historial: string[] = [];
 //TODO; Cambiar any por su tipo 
-  public resultados: any[] = [];
+  public resultados: Gif[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -48,8 +49,8 @@ se eliminarán todos los elementos después del décimo elemento y solo se conse
     la interpolación de variables y expresiones dentro de una cadena de texto 
     utilizando la sintaxis ${} y se pueden utilizar para formatear cadenas de texto
      más complejas de manera más fácil y legible. */
-    this.http.get(`https://api.giphy.com/v1/gifs/search?api_key=N8segJHx4XezJ8U2f0Ma13fPMQIDoIA6&q=${ query }&limit=10`)
-    .subscribe( (resp: any)  =>{
+    this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=N8segJHx4XezJ8U2f0Ma13fPMQIDoIA6&q=${ query }&limit=10`)
+    .subscribe( resp  =>{
       console.log( resp.data);
       this.resultados = resp.data;
     })
