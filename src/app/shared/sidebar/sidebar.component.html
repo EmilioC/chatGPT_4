@@ -6,7 +6,10 @@
         <a *ngFor="let item of historial"
         href="#" 
         class="list-group-item list-group-item-action">
-            {{ item }}
+<!--         filtro de tubería titlecase para convertir cada elemento 
+        del historial en título caso, lo que significa que 
+        la primera letra de cada palabra se convierte en mayúscula -->
+            {{ item | titlecase }}
         </a>
     </div>
 </div>
