@@ -13,7 +13,28 @@ export class GifsService {
 //TODO; Cambiar any por su tipo 
   public resultados: Gif[] = [];
 
-  constructor(private http: HttpClient) { }
+/*   En particular, el constructor primero intenta obtener 
+  los datos del historial previamente almacenados en el 
+  objeto localStorage del navegador mediante el método getItem.
+   Si hay datos almacenados en el localStorage, se convierten 
+   de una cadena JSON a un objeto JavaScript mediante el 
+   método JSON.parse() y se asignan a la propiedad _historial. 
+   Si no hay datos almacenados en el localStorage, 
+   se inicializa _historial como una matriz vacía []. */
+  constructor(private http: HttpClient) {
+    this._historial = JSON.parse( localStorage.getItem('historial')!) || []
+
+/* El símbolo ! después de la llamada a getItem es un operador
+ de afirmación no nulo (non-null assertion operator), que le 
+ dice a TypeScript que el valor devuelto por getItem no será
+  null o undefined. Esto es necesario porque getItem devuelve
+   una cadena o null, y el método JSON.parse() espera una cadena como argumento. 
+
+if(localStorage.getItem('historial')){
+      this._historial = JSON.parse( localStorage.getItem('historial')!)
+    } */
+    
+   }
 
   get historial() {
     /*  La sintaxis [...this._historial] indica que se debe 
@@ -43,6 +64,8 @@ export class GifsService {
 a partir del índice 0, excepto los primeros 10 elementos. Esto significa que si _historial tiene más de 10 elementos, 
 se eliminarán todos los elementos después del décimo elemento y solo se conservarán los primeros 10 elementos */
       this._historial = this._historial.splice(0, 10);
+
+      localStorage.setItem('historial', JSON.stringify( this._historial ));
     }
 
 /*     símbolo ` (acento grave) en lugar de comillas. Los template literals permiten 
