@@ -76,6 +76,8 @@ se eliminarán todos los elementos después del décimo elemento y solo se conse
     .subscribe( resp  =>{
       console.log( resp.data);
       this.resultados = resp.data;
+      //Grabamos los resultados en el localStorage
+      localStorage.setItem('resultados', JSON.stringify( this.resultados ));
     })
 
     console.log("***DESDE GIFSSERVICE***", this._historial);
