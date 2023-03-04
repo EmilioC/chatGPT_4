@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { SearchGifsResponse, Gif } from '../interfaces/gifs.interface';
 
 @Injectable({
@@ -9,7 +9,9 @@ import { SearchGifsResponse, Gif } from '../interfaces/gifs.interface';
 export class GifsService {
 
   private apikey: string = "N8segJHx4XezJ8U2f0Ma13fPMQIDoIA6";
+  private servicioUrl: string = 'https://api.giphy.com/v1/gifs';
   private _historial: string[] = [];
+  private limit: number = 10;
 //TODO; Cambiar any por su tipo 
   public resultados: Gif[] = [];
 
@@ -68,11 +70,17 @@ se eliminarán todos los elementos después del décimo elemento y solo se conse
       localStorage.setItem('historial', JSON.stringify( this._historial ));
     }
 
+    const params = new HttpParams()
+    .set('api_key', this.apikey)
+    .set('limit', this.limit.toString())
+    .set('q',query)
+   
+
 /*     símbolo ` (acento grave) en lugar de comillas. Los template literals permiten 
     la interpolación de variables y expresiones dentro de una cadena de texto 
     utilizando la sintaxis ${} y se pueden utilizar para formatear cadenas de texto
      más complejas de manera más fácil y legible. */
-    this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=N8segJHx4XezJ8U2f0Ma13fPMQIDoIA6&q=${ query }&limit=10`)
+    this.http.get<SearchGifsResponse>(`${ this.servicioUrl }/search`, { params : params })
     .subscribe( resp  =>{
       console.log( resp.data);
       this.resultados = resp.data;
@@ -90,4 +98,14 @@ se eliminarán todos los elementos después del décimo elemento y solo se conse
       resp.json().then(data => {
         console.log(data)
       })
-    }) */
+    }) 
+    
+    
+    // llamada con url
+     this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=N8segJHx4XezJ8U2f0Ma13fPMQIDoIA6&q=${ query }&limit=10`)
+    .subscribe( resp  =>{
+      console.log( resp.data);
+      this.resultados = resp.data;
+      //Grabamos los resultados en el localStorage
+      localStorage.setItem('resultados', JSON.stringify( this.resultados ));
+    })*/
