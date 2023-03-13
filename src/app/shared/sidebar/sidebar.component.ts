@@ -5,6 +5,7 @@ import { GifsService } from '../../gifs/services/gifs.service';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styles: [
+    `li{ cursor: pointer;}`
   ]
 })
 export class SidebarComponent {

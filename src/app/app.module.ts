@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { GifsModule } from './gifs/gifs.module';
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CustomerSupportComponent } from './customer-support/customer-support.co
   imports: [
     BrowserModule,
     HttpClientModule,
+    AppRoutingModule,
     SharedModule,
     GifsModule,
     CommonModule

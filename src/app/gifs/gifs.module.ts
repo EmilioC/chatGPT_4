@@ -5,8 +5,6 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
 import { ResultadosComponent } from './resultados/resultados.component';
 import { ResultadosGPTComponent } from './resultados-gpt/resultados-gpt.component';
 
-
-
 @NgModule({
   declarations: [
     GifsPageComponent,
