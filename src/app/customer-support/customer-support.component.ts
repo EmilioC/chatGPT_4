@@ -29,7 +29,7 @@ response!: ResponseModel | undefined;
   }
 
   checkResponse() {
-    this.pushChatContent(this.promptText,'You','person');
+    this.pushChatContent(this.promptText,'Fistro pecador','person');
     this.invokeGPT();
   }
 
@@ -78,6 +78,7 @@ response!: ResponseModel | undefined;
       // Consider adjusting the error handling logic for your use case
       if (error.response) {
         console.error(error.response.status, error.response.data);
+        this.pushChatContent("Madre mía ¡¡ los cien caballos de bonanza se me han escapao ¡¡",'ChiquiTronic','bot'); 
         
       } else {
         console.error(`Error with OpenAI API request: ${error.message}`);
