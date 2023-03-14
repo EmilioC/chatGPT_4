@@ -3,6 +3,7 @@ import { Configuration, OpenAIApi } from 'openai';
 import { environment } from '../environments/environment';
 import { gptModels } from '../models/constants';
 import { ChatWithBot, ResponseModel } from '../models/gpt-response';
+import { frasesChiquito } from '../../assets/data/arrayFrasesChiquito';
 
 @Component({
   selector: 'app-customer-support',
@@ -13,11 +14,18 @@ chatConversation: ChatWithBot[]=[];
 response!: ResponseModel | undefined;
     gptModels = gptModels
     promptText = '';
+    arrayFrasesChiquito = frasesChiquito;
+    promptTextModificado = 'responde gracioso, añadiendo durante tu respuesta varias convinaciones de la siguiente frase:'
     showSpinner = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  fraseAleatoria(array: string[]) {
+    const indice = Math.floor(Math.random() * array.length);
+    return array[indice];
   }
 
   checkResponse() {
@@ -27,7 +35,7 @@ response!: ResponseModel | undefined;
 
   pushChatContent(content:string, person:string, cssClass:string) {
     const chatToPush: ChatWithBot = { person:person, response:content, cssClass:cssClass};
-    this.chatConversation.push(chatToPush);
+    this.chatConversation.unshift(chatToPush);
   }
 
 
@@ -42,9 +50,6 @@ response!: ResponseModel | undefined;
 
     if(this.promptText.length<2)
     return;
-
-    
-
     try{
       this.response = undefined;
       let configuration = new Configuration({apiKey: environment.apiKey});
@@ -52,9 +57,9 @@ response!: ResponseModel | undefined;
 
       let requestData={
         model: 'text-davinci-003',//'text-davinci-003',//"text-curie-001",
-        prompt: this.promptText,//this.generatePrompt(animal),
+        prompt: this.promptTextModificado + this.fraseAleatoria(frasesChiquito) + this.promptText,//this.generatePrompt(animal),
         temperature: 0.95,
-        max_tokens: 150,
+        max_tokens: 100,
         top_p: 1.0,
         frequency_penalty: 0.0,
         presence_penalty: 0.0,
@@ -63,8 +68,8 @@ response!: ResponseModel | undefined;
       let apiResponse =  await openai.createCompletion(requestData);
 
       this.response = apiResponse.data as ResponseModel;
-      this.pushChatContent(this.response.choices[0].text.trim(),'Mr Bot','bot');
-debugger;
+      this.pushChatContent(this.response.choices[0].text.trim(),'ChiquiTronic','bot'); 
+
       this.showSpinner = false;
     }catch(error:any) {
       this.showSpinner = false;
@@ -77,5 +82,17 @@ debugger;
         
       }
     }
+  }
+
+  rabbitState: string = '';
+
+  startAnimation() {
+    this.rabbitState = 'running';
+    setTimeout(() => {
+      this.rabbitState = 'love';
+      setTimeout(() => {
+        this.rabbitState = '';
+      }, 500);
+    }, 2000);
   }
 }
