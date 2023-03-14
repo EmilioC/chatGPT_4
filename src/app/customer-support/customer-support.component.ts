@@ -31,6 +31,7 @@ response!: ResponseModel | undefined;
   checkResponse() {
     this.pushChatContent(this.promptText,'You','person');
     this.invokeGPT();
+    this.promptText = '';
   }
 
   pushChatContent(content:string, person:string, cssClass:string) {
