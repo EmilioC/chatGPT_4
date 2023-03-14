@@ -31,7 +31,6 @@ response!: ResponseModel | undefined;
   checkResponse() {
     this.pushChatContent(this.promptText,'You','person');
     this.invokeGPT();
-    this.promptText = '';
   }
 
   pushChatContent(content:string, person:string, cssClass:string) {
@@ -70,6 +69,8 @@ response!: ResponseModel | undefined;
 
       this.response = apiResponse.data as ResponseModel;
       this.pushChatContent(this.response.choices[0].text.trim(),'ChiquiTronic','bot'); 
+      
+    this.promptText = '';
 
       this.showSpinner = false;
     }catch(error:any) {
