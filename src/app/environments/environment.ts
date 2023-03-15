@@ -7,7 +7,7 @@ import { EnvironmentConfiguration } from "../gifs/interfaces/environment-configu
 export const environment: EnvironmentConfiguration = {
   env_name: 'dev',
   production: false,
-  apiKey: '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'
+  apiKey: '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'
 };
 
 /*
