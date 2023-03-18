@@ -1,5 +1,5 @@
 export const frasesChiquito = [
-    "Ligas menos que Torrebruno en Melrose Place.",
+    "Ligas menos que Torrebruno en Melrose Place..",
     "Tienes mas peligro que un barbero con hipo.",
     "Tienes mas capacidad que la furgoneta del equipo 'A'.",
     "Tienes mas peligro que una piraña en un bidé.",
