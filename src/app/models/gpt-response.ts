@@ -7,11 +7,14 @@ export interface ResponseModel  {
     modelUsage:usage;
 }
 
+
+
 export interface choice {
     text:string;
     index:number;
     logprobs:any;
     finish_reason:string;
+    message?: []
 }
 
 export interface usage {
@@ -25,3 +28,25 @@ export interface ChatWithBot {
     response: string;
     cssClass:string;
 }
+
+export interface ResponseModelTurbo  {
+    id:string;
+    object: string;
+    created:number;
+    model:string;
+    choicesTurbo:choice
+    modelUsage:usage;
+}
+
+export interface choicesTurbo {
+    text:string;
+    index:number;
+    logprobs:any;
+    finish_reason:string;
+    message: message[]
+}
+
+export interface message  {
+    role:string;
+    content: string;
+    }
