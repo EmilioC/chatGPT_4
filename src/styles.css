@@ -14,8 +14,8 @@ html, body {
     font-size: 2rem;
     text-transform: uppercase;
     color: #fff;
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #276d32, 0 0 30px #01b4f5, 0 0 40px #01b4f5, 0 0 55px #01b4f5, 0 0 75px #01b4f5;
-    animation: neon 1.5s ease-in-out infinite;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #00ff26, 0 0 30px #32f501, 0 0 40px #d0f501, 0 0 55px #77f501, 0 0 75px #4ef501;
+    animation: neon 1.2s ease-in-out infinite;
   }
   
   .neon:before,
@@ -36,7 +36,7 @@ html, body {
   
   @keyframes neon {
     0%, 100% {
-      text-shadow: 0 0 5px #fff, 0 0 10px #000000, 0 0 15px #fff, 0 0 20px #01b4f5, 0 0 30px #01b4f5, 0 0 40px #01b4f5, 0 0 55px #01b4f5, 0 0 75px #01b4f5;
+      text-shadow: 0 0 5px #fff, 0 0 10px #000000, 0 0 15px #fff, 0 0 20px #01b4f5, 0 0 30px #edf501, 0 0 40px #5af501, 0 0 55px #3af501, 0 0 75px #3af501;
     }
     50% {
       text-shadow: none;
