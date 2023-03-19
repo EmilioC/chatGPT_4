@@ -113,7 +113,7 @@ export class CustomerSupportComponent implements OnInit {
       console.log(this.responseTurbo[0].message.content);
       this.pushChatContentTurbo(this.responseTurbo[0].message.content, 'ChiquiTronic', 'bot');
       /* FIN MODIFICADO PARA gpt-3.5-turbo */
-
+this.hablar(this.responseTurbo[0].message.content);
       this.showSpinner = false;
 
     } catch (error: any) {
@@ -141,4 +141,13 @@ export class CustomerSupportComponent implements OnInit {
       }, 500);
     }, 2000);
   }
+
+  hablar( texto: string): void {
+    const sintesis = window.speechSynthesis;
+    const mensaje = new 
+    SpeechSynthesisUtterance(texto);
+    mensaje.lang = 'es-ES';
+    sintesis.speak(mensaje);
+  }
+
 }

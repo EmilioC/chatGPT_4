@@ -9,11 +9,13 @@ import { SharedModule } from './shared/shared.module';
 import { GifsModule } from './gifs/gifs.module';
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AsistenteVirtualComponent } from './asistente-virtual/asistente-virtual.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerSupportComponent
+    CustomerSupportComponent,
+    AsistenteVirtualComponent
   ],
   imports: [
     BrowserModule,
