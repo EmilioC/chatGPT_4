@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi, } from 'openai';
 import { environment } from '../environments/environment';
 import { gptModels } from '../models/constants';
 import { ChatWithBot, ResponseModel, ResponseModelTurbo, message } from '../models/gpt-response';
-import { frasesChiquito } from '../../assets/data/arrayFrasesChiquito';
+import { frasesChiquito_1 } from '../../assets/data/arrayFrasesChiquito_1';
 import { User } from '../gifs/interfaces/gifs.interface';
 
 @Component({
@@ -19,8 +19,8 @@ export class CustomerSupportComponent implements OnInit {
   promptText = '';
   roleSystem: string = 'system';
   roleUser: string = 'user'
-  arrayFrasesChiquito = frasesChiquito;
-  promptTextModificado = 'responde gracioso, añadiendo durante tu respuesta varias convinaciones de la siguiente frase:'
+  arrayFrasesChiquito = frasesChiquito_1;
+  promptTextModificado = ', responde con mucho humor, añade a tu respuesta, combinaciones de las palabras de la siguiente frase:'
   showSpinner = false;
   messages: string[] = [];
   temperature: number = 0;
@@ -99,7 +99,7 @@ export class CustomerSupportComponent implements OnInit {
           model: 'gpt-3.5-turbo',
           messages: [
             { 'role': 'system', content: "eres un humorista" },
-            { 'role': 'user', content: this.promptTextModificado + this.fraseAleatoria(frasesChiquito) + this.promptText, }
+            { 'role': 'user', content:this.promptText + this.promptTextModificado + this.fraseAleatoria(frasesChiquito_1) }
           ]
           ,
           temperature: 1
