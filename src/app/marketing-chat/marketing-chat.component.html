@@ -46,9 +46,29 @@
              -->
                         <input class="form-control me-2 " type="search"  [(ngModel)]="promptText"
                         (focus)="escuchar()" placeholder="Introduzca el texto..." aria-label="Search">
-                      
                         <button class="btn btn-outline-secondary" type="submit" (click)="checkResponse()">Buscar</button>
+                      
                     </div>
+
+                    <div class="col-md-12">
+                        <br>
+                        <div class="card">
+                            <h4 class="card-header center neon_1">REPRODUCCIÓN</h4>
+                            <div class="card-body">
+                                <button type="button" class="btn btn-outline-danger"(click)="cancelarHablar()" >CANCELAR</button>
+                                <button type="button" class="btn btn-outline-danger"(click)="pausarHablar()" >PAUSAR</button>
+                                <button type="button" class="btn btn-outline-danger"(click)="reanudarHablar()" >SEGUIR</button>
+            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                           
+
+                      
+               
+
             <!--         <button (click)="escuchar()" [ngClass]="{'btn-recording': isRecording, 'btn-finished': !isRecording}" class="btn btn-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="bi bi-mic" xlink:href="assets/bootstrap-icons.svg#mic"></svg>
                         Escuchar
@@ -80,4 +100,4 @@
                         </div>
                     </div>
                 </div>
-            </div>
+          

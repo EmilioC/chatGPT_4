@@ -21,14 +21,17 @@ export class MarketingChatComponent {
   roleSystem: string = 'system';
   roleUser: string = 'user'
   arrayFrasesChiquito = frasesChiquito_1;
-  promptTextModificado = ', responde con mucho humor, añade a tu respuesta, combinaciones de las palabras de la siguiente frase:'
+  promptTextModificado = ',como experto en marketing, añade a tu respuesta, combinaciones de las palabras de la siguiente frase:'
   showSpinner = false;
   messages: string[] = [];
   temperature: number = 0;
   isRecording: boolean = false;
+  mensaje: SpeechSynthesisUtterance;
 
 
-  constructor() { }
+  constructor() { 
+    this.mensaje = new SpeechSynthesisUtterance();
+  }
 
   ngOnInit(): void {
   }
@@ -100,8 +103,8 @@ export class MarketingChatComponent {
         {
           model: 'gpt-3.5-turbo',
           messages: [
-            { 'role': 'system', content: "eres un humorista" },
-            { 'role': 'user', content:this.promptText + this.promptTextModificado + this.fraseAleatoria(frasesChiquito_1) }
+            { 'role': 'system', content: "eres un experto en marketing online con humor" },
+            { 'role': 'user', content:this.promptText + this.promptTextModificado}
           ]
           ,
           temperature: 1
@@ -144,14 +147,50 @@ export class MarketingChatComponent {
     }, 2000);
   }
 
-  hablar( texto: string): void {
+/*   hablar( texto: string): void {
     
     const sintesis = window.speechSynthesis;
     const mensaje = new 
     SpeechSynthesisUtterance(texto);
     mensaje.lang = 'es-ES';
     sintesis.speak(mensaje);
+  
   }
+
+  pararHablar(): void {
+    const sintesis = window.speechSynthesis;
+    if (sintesis.speaking) {
+      sintesis.cancel();
+    }
+  }
+ */
+  hablar(texto: string): void {
+    const sintesis = window.speechSynthesis;
+    this.mensaje = new SpeechSynthesisUtterance(texto);
+    this.mensaje.lang = 'es-ES';
+    sintesis.speak(this.mensaje);
+  }
+  
+  pausarHablar(): void {
+    const sintesis = window.speechSynthesis;
+    if (sintesis.speaking && !sintesis.paused) {
+      sintesis.pause();
+    }
+  }
+  
+  reanudarHablar(): void {
+    const sintesis = window.speechSynthesis;
+    if (sintesis.speaking && sintesis.paused) {
+      sintesis.resume();
+    }
+  }
+  
+  cancelarHablar(): void {
+    const sintesis = window.speechSynthesis;
+    sintesis.cancel();
+    this.mensaje.onend; // Limpia el mensaje almacenado.
+  }
+
 
 
 /*   escuchar(): void {
