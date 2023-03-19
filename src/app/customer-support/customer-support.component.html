@@ -45,13 +45,18 @@
             <button class="btn btn-primary" (click)="checkResponse()">Send</button>
  -->
             <input class="form-control me-2 " type="search"  [(ngModel)]="promptText"
-            placeholder="Introduzca el texto..." aria-label="Search">
+            (focus)="escuchar()" placeholder="Introduzca el texto..." aria-label="Search">
+          
             <button class="btn btn-outline-secondary" type="submit" (click)="checkResponse()">Buscar</button>
         </div>
+<!--         <button (click)="escuchar()" [ngClass]="{'btn-recording': isRecording, 'btn-finished': !isRecording}" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="bi bi-mic" xlink:href="assets/bootstrap-icons.svg#mic"></svg>
+            Escuchar
+          </button> -->
         <div class="col-md-12">
             <br>
             <div class="card">
-                <h4 class="card-header center neon">Chiqui Chiqui Chat</h4>
+                <h4 class="card-header center neon_1">Chat marketing</h4>
                 <div class="card-body">
                     <h6 class="card-title text-success center"></h6>
                     <div class="row">

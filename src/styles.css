@@ -52,6 +52,53 @@ html, body {
     }
   }
 
+  .neon_1 {
+    display: inline-block;
+    position: relative;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #00ff26, 0 0 30px #32f501, 0 0 40px #d0f501, 0 0 55px #77f501, 0 0 75px #4ef501;
+    animation: neon_1 1.2s ease-in-out infinite;
+  }
+  
+  .neon_1:before,
+  .neon_1:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  .neon_1:before {
+    animation: flicker_1 1.5s linear infinite;
+  }
+  
+  .neon_1:after {
+    animation: flicker_1 2s
+
+  }
+
+  @keyframes neon_1 {
+    0%, 100% {
+      text-shadow: 0 0 5px #fff, 0 0 10px #000000, 0 0 15px #00fbff, 0 0 20px #01b4f5, 0 0 30px #01a4f5, 0 0 40px #01c8f5, 0 0 55px #0501f5, 0 0 75px #0152f5;
+    }
+    50% {
+      text-shadow: none;
+    }
+  }
+  
+  @keyframes flicker_1 {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+
+
 
   .title-heading {
     color: teal;
@@ -293,4 +340,12 @@ html, body {
     100% {
       opacity: 0;
     }
+  }
+
+  .btn-recording {
+    background-color: red;
+  }
+  
+  .btn-finished {
+    background-color: green;
   }

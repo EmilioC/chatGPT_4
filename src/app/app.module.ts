@@ -10,12 +10,14 @@ import { GifsModule } from './gifs/gifs.module';
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AsistenteVirtualComponent } from './asistente-virtual/asistente-virtual.component';
+import { MarketingChatComponent } from './marketing-chat/marketing-chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerSupportComponent,
-    AsistenteVirtualComponent
+    AsistenteVirtualComponent,
+    MarketingChatComponent
   ],
   imports: [
     BrowserModule,

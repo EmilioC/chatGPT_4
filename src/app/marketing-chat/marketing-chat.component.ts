@@ -4,13 +4,14 @@ import { environment } from '../environments/environment';
 import { gptModels } from '../models/constants';
 import { ChatWithBot, ResponseModel, ResponseModelTurbo, message } from '../models/gpt-response';
 import { frasesChiquito_1 } from '../../assets/data/arrayFrasesChiquito_1';
-import { User } from '../gifs/interfaces/gifs.interface';
 
 @Component({
-  selector: 'app-customer-support',
-  templateUrl: './customer-support.component.html'
+  selector: 'app-marketing-chat',
+  templateUrl: './marketing-chat.component.html',
+  styleUrls: ['./marketing-chat.component.css']
 })
-export class CustomerSupportComponent implements OnInit {
+export class MarketingChatComponent {
+
 
   chatConversation: ChatWithBot[] = [];
   response!: ResponseModel | undefined;
@@ -217,3 +218,4 @@ export class CustomerSupportComponent implements OnInit {
 
 }
 }
+
