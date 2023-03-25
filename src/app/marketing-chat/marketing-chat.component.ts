@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Configuration, OpenAIApi, } from 'openai';
 import { environment } from '../environments/environment';
 import { gptModels } from '../models/constants';
@@ -26,10 +26,11 @@ export class MarketingChatComponent {
   messages: string[] = [];
   temperature: number = 0;
   isRecording: boolean = false;
-  mensaje: SpeechSynthesisUtterance;
+  mensaje: SpeechSynthesisUtterance | null = null;
+  myButton = document.getElementById('myButton');
 
 
-  constructor() { 
+  constructor(private elementRef: ElementRef) {
     this.mensaje = new SpeechSynthesisUtterance();
   }
 
@@ -81,30 +82,13 @@ export class MarketingChatComponent {
       let configuration = new Configuration({ apiKey: environment.apiKey });
       let openai = new OpenAIApi(configuration);
 
-      /*       let requestData={
-              model: 'text-davinci-003',//'text-davinci-003',//"text-curie-001",
-              prompt: this.promptTextModificado + this.fraseAleatoria(frasesChiquito) + this.promptText,//this.generatePrompt(animal),
-              temperature: 0.95,
-              max_tokens: 100,
-              top_p: 1.0,
-              frequency_penalty: 0.0,
-              presence_penalty: 0.0,
-            };
-      
-                  this.showSpinner = true;
-            let apiResponse =  await openai.createCompletion(requestData);
-      
-            this.response = apiResponse.data as ResponseModel;
-            this.pushChatContent(this.response.choices[0].text.trim(),'ChiquiTronic','bot'); 
-       */
-      /* INICIO MODIFICADO PARA gpt-3.5-turbo */
       this.showSpinner = true;
       let apiResponse = await openai.createChatCompletion(
         {
           model: 'gpt-3.5-turbo',
           messages: [
             { 'role': 'system', content: "eres un experto en marketing online con humor" },
-            { 'role': 'user', content:this.promptText + this.promptTextModificado}
+            { 'role': 'user', content: this.promptText + this.promptTextModificado }
           ]
           ,
           temperature: 1
@@ -112,14 +96,15 @@ export class MarketingChatComponent {
       )
 
       this.response = apiResponse.data as ResponseModel;
-      /* console.log(this.responseTurbo); */
       this.responseTurbo = this.response.choices;
-
-     /*  console.log(this.responseTurbo[0].message.content); */
+      console.log("**AUDIO: ",this.responseTurbo[0].message.content);
+      this.hablar(this.responseTurbo[0].message.content);
+    
       this.pushChatContent(this.responseTurbo[0].message.content, 'ChiquiTronic', 'bot');
-      /* FIN MODIFICADO PARA gpt-3.5-turbo */
+      /* this.myButton?.blur(); */
       this.hablar(this.responseTurbo[0].message.content);
       this.showSpinner = false;
+
 
     } catch (error: any) {
       this.showSpinner = false;
@@ -147,89 +132,32 @@ export class MarketingChatComponent {
     }, 2000);
   }
 
-/*   hablar( texto: string): void {
-    
-    const sintesis = window.speechSynthesis;
-    const mensaje = new 
-    SpeechSynthesisUtterance(texto);
-    mensaje.lang = 'es-ES';
-    sintesis.speak(mensaje);
-  
-  }
-
-  pararHablar(): void {
-    const sintesis = window.speechSynthesis;
-    if (sintesis.speaking) {
-      sintesis.cancel();
-    }
-  }
- */
   hablar(texto: string): void {
     const sintesis = window.speechSynthesis;
     this.mensaje = new SpeechSynthesisUtterance(texto);
     this.mensaje.lang = 'es-ES';
     sintesis.speak(this.mensaje);
   }
-  
+
   pausarHablar(): void {
     const sintesis = window.speechSynthesis;
     if (sintesis.speaking && !sintesis.paused) {
       sintesis.pause();
     }
   }
-  
+
   reanudarHablar(): void {
     const sintesis = window.speechSynthesis;
     if (sintesis.speaking && sintesis.paused) {
       sintesis.resume();
     }
   }
-  
+
   cancelarHablar(): void {
     const sintesis = window.speechSynthesis;
     sintesis.cancel();
-    this.mensaje.onend; // Limpia el mensaje almacenado.
+    this.mensaje = null; // Limpia el mensaje almacenado.
   }
-
-
-
-/*   escuchar(): void {
-    const reconocimiento = new (window as any).webkitSpeechRecognition();
-    reconocimiento.lang = 'es-ES';
-    reconocimiento.onresult = (event: any) => {
-      this.promptText = event.results[0][0].transcript;
-    };
-    reconocimiento.start();
-  } */
-
-/*   escuchar(): void {
-    console.log("*** Activado escuchar() ***");
-    const reconocimiento = new (window as any).webkitSpeechRecognition();
-    reconocimiento.lang = 'es-ES';
-    let timeout: ReturnType<typeof setTimeout>;
-  
-    reconocimiento.onresult = (event: any) => {
-      clearTimeout(timeout);
-      this.promptText = event.results[0][0].transcript;
-      timeout = setTimeout(() => {
-        reconocimiento.stop();
-      }, 0.6);
-    };
-  
-    reconocimiento.onspeechend = () => {
-      clearTimeout(timeout);
-      this.isRecording = false;
-      reconocimiento.stop();
-    };
-  
-    console.log(this.promptText);
-    this.isRecording = true;
-    reconocimiento.start(); 
-    console.log("*** desactivado escuchar() ***");
-    console.log("PromptText", this.promptText);
-    this.checkResponse();
-    
-  } */
 
   escuchar(): void {
     this.promptText = '';
@@ -237,7 +165,7 @@ export class MarketingChatComponent {
     const reconocimiento = new (window as any).webkitSpeechRecognition();
     reconocimiento.lang = 'es-ES';
     let timeout: ReturnType<typeof setTimeout>;
-  
+
     reconocimiento.onresult = (event: any) => {
       clearTimeout(timeout);
       this.promptText = event.results[0][0].transcript;
@@ -245,16 +173,13 @@ export class MarketingChatComponent {
         /* reconocimiento.stop(); */
         reconocimiento.stop();
       }, 2000);
-      
+
       console.log("***", this.promptText);
       console.log("*** FIN escuchar() ***");
-      this.pushChatContent(this.promptText, 'ChiquiTronic', 'bot');
-      
-      this.invokeGPT();
+
+      this.checkResponse();
     };
-    reconocimiento.start(); 
-
-
-}
+    reconocimiento.start();
+  }
 }
 

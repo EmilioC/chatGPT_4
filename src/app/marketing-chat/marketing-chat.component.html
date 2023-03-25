@@ -1,103 +1,48 @@
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <br>
-                <div class="card">
-                    <h4 class="card-header center neon">ChiquiTronic</h4>
-                    <div class="card-body">
-                        <h6 class="card-title text-success center"></h6>
-                        <div class="row">
-                            <div class="col-md-12"></div>
-                            <div class="col-md-12">
-                                <div class="frame-box">
-                                    <div *ngFor="let item of chatConversation">
-                                        <p class="card-text padding" [ngClass]="item.cssClass">
-                                            {{item.person}} :  {{getText(item.response)}}                                                                                                            
-                                        </p>
-                                        
-                                    </div>
-                                    <div><img src="../../assets/ZNeT.gif" *ngIf="showSpinner" width="50px" height="50px"></div>
-                                    
-                                </div>
-                                <br>
-                                    <textarea row="3" cols="15" class="form-control" [(ngModel)]="promptText" placeholder="Apúnta bien ¡¡"></textarea>
-                                    <br>
-                                        <button class="btn btn-primary push-right" (click)="checkResponse()">Send</button>
-                                    </div>
-                                    <div class="col-md-2">
-                                      
-                                    </div>
+<div class="container">
+    <div class="row ">
+        <div class="d-flex justify-content-end">
+            <input class="form-control me-1 " type="search" [(ngModel)]="promptText"
+                placeholder="Introduzca el texto..." aria-label="Search">             
+
+          <!--   <button class="btn btn-outline-secondary me-1" type="submit" (click)="checkResponse()">Buscar</button> -->
+            <button class="btn btn-outline-secondary me-1" type="submit" #myButton (click)="checkResponse()">Buscar</button>
+            <button class="btn btn-outline-secondary me-1" type="submit" #myButton (click)="escuchar()">audio</button>
+        </div>
+    </div>
+    <button  class="btn btn-outline-danger me-1" (click)="cancelarHablar()">X</button>
+    <button  class="btn btn-outline-danger me-1" (click)="pausarHablar()">||</button>
+    <button  class="btn btn-outline-danger me-1" (click)="reanudarHablar()">></button>
+    <br>
+    <div class="col-md-12">
+        <div class="d-flex justify-content-end">
+
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <br>
+        <div class="card">
+            <h4 class="card-header center neon_1">Chat marketing</h4>
+            <div class="card-body">
+                <h6 class="card-title text-success center"></h6>
+                <div class="row">
+                    <div class="col-md-12"></div>
+                    <div class="col-md-12">
+                        <div class="frame-box">
+                            <div><img src="../../assets/ZNeT.gif" *ngIf="showSpinner" width="50px" height="50px">
+                                <div *ngFor="let item of chatConversation">
+                                    <p class="card-text padding" [ngClass]="item.cssClass">
+                                        <b>{{item.person}}:</b> {{getText(item.response)}}
+                                    </p>
                                 </div>
 
                             </div>
                         </div>
+                        <br>
+
                     </div>
                 </div>
             </div>
-             -->
-
-             <div class="container">
-
-                <div class="row">
-                    <div class="d-flex justify-content-end">
-            <!--             <textarea row="3" cols="15" class="form-control" [(ngModel)]="promptText"
-                            placeholder="Apúnta bien ¡¡"></textarea>
-                        <button class="btn btn-primary" (click)="checkResponse()">Send</button>
-             -->
-                        <input class="form-control me-2 " type="search"  [(ngModel)]="promptText"
-                        (focus)="escuchar()" placeholder="Introduzca el texto..." aria-label="Search">
-                        <button class="btn btn-outline-secondary" type="submit" (click)="checkResponse()">Buscar</button>
-                      
-                    </div>
-
-                    <div class="col-md-12">
-                        <br>
-                        <div class="card">
-                            <h4 class="card-header center neon_1">REPRODUCCIÓN</h4>
-                            <div class="card-body">
-                                <button type="button" class="btn btn-outline-danger"(click)="cancelarHablar()" >CANCELAR</button>
-                                <button type="button" class="btn btn-outline-danger"(click)="pausarHablar()" >PAUSAR</button>
-                                <button type="button" class="btn btn-outline-danger"(click)="reanudarHablar()" >SEGUIR</button>
-            
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                           
-
-                      
-               
-
-            <!--         <button (click)="escuchar()" [ngClass]="{'btn-recording': isRecording, 'btn-finished': !isRecording}" class="btn btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="bi bi-mic" xlink:href="assets/bootstrap-icons.svg#mic"></svg>
-                        Escuchar
-                      </button> -->
-                    <div class="col-md-12">
-                        <br>
-                        <div class="card">
-                            <h4 class="card-header center neon_1">Chat marketing</h4>
-                            <div class="card-body">
-                                <h6 class="card-title text-success center"></h6>
-                                <div class="row">
-                                    <div class="col-md-12"></div>
-                                    <div class="col-md-12">
-                                        <div class="frame-box">
-                                            <div><img src="../../assets/ZNeT.gif" *ngIf="showSpinner" width="50px" height="50px">
-                                            <div *ngFor="let item of chatConversation">
-                                                <p class="card-text padding" [ngClass]="item.cssClass">
-                                                    <b>{{item.person}}:</b> {{getText(item.response)}}
-                                                </p>
-                                            </div>
-                     
-                                            </div>
-                                        </div>
-                                        <br>
-            
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-          
+        </div>
+    </div>
+</div>
